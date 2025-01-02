@@ -3,25 +3,203 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <title>Samu App English</title>
 </head>
 <body>
     <style>
-        body{
+
+        /* Estilos generales */
+        body {
+            font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #1C1D22;
+            background-color: #1B1B26;
+            color: white;
+        }
+
+        /* Estilo del encabezado */
+        h2 {
+            text-align: center;
+            color: #17B3F8;
+            margin-bottom: 20px;
+        }
+
+        h2 span {
+            font-weight: 600;
+        }
+
+        /* Estilo del contenedor principal (Card) */
+        .container {
+            background-color: #0f1120;
+            border-radius: 15px;
+            padding: 20px;
+            width: 90%;
+            max-width: 800px;
+            margin: 20px auto;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        /* Estilo del contenedor de juego */
+        #container-game {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            width: 100%;
+        }
+
+        /* Estilo del formulario */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* Estilos para los inputs del formulario */
+        input[type="text"], input[type="email"], input[type="password"] {
+            padding: 10px;
+            border: 1px solid #17B3F8;
+            border-radius: 8px;
+            background-color: #1E2139;
+            color: white;
+            font-size: 16px;
+        }
+        .container img{
+            width: 90%;
+        }
+        input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus {
+            outline: none;
+            border-color: #17B3F8;
+        }
+
+        /* Estilo del botón de envío */
+        button {
+            background-color: #17B3F8;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0A8BC3;
+        }
+
+        /* Estilo para el botón "Add New Word" */
+        #AddNewWord {
+            background-color: #FF6404;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            display: block;
+            margin: 20px auto;
+            text-align: center;
+            font-family: "poppins";
+            font-weight: 700;
+        }
+
+        /* Estilos para los diálogos (modales) */
+        dialog {
+            background-color: #2C2F56;
+            color: white;
+            border-radius: 10px;
+            padding: 20px;
+            border: none;
+            max-width: 400px;
+            width: 90%;
+            margin: 50px auto;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Estilo de los inputs dentro del formulario en los diálogos */
+        dialog input[type="text"], dialog input[type="email"], dialog input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 7px 0;
+            border-radius: 8px;
+            border: 1px solid #17B3F8;
+            background-color: #1E2139;
+            color: white;
+        }
+
+        /* Estilo de las etiquetas en los formularios */
+        label {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: white;
+        }
+
+        /* Estilo del logo dentro de los formularios de inicio de sesión */
+        .loginForm img {
+            display: block;
+            margin: 0 auto 20px;
+            max-width: 100px;
+        }
+
+        /* Estilo de los botones en los diálogos */
+        dialog button[type="submit"] {
+            background-color: #17B3F8;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            display: block;
+            width: 100%;
+        }
+
+        dialog button[type="submit"]:hover {
+            background-color: #0A8BC3;
+        }
+        #wordSpanishEnglish{
+            color: white;
+            font-size: 18px;
+        }
+        .Enviar{
+            border-radius: 40px;
+            font-family: "poppins";
+            font-weight: 700;
 
         }
+        #NewWord{
+            margin-top: 5px;
+            background-color: #0f1120;
+        }
+        #NewWord input{
+            margin-top: 3px;
+        }
+        #wordactually{
+            font-size: 20px;
+            text-align: center;
+            padding: 10px;
+            text-transform: capitalize;
+        }
+
     </style>
    <main>
     <section class="game-main">
-        <h2>My App English</h2>
-        <div>
+        <h2> <span id="wordSpanishEnglish"></span> </h2>
+        <div class="container" >
+            <div id="container-game" >              
+            </div>
             <span id="wordactually" ></span>
             
             <form id="guessword">
                 <input type="text" id="wordguess" name="wordguess" placeholder="Enter the word" required>
+                <button class="Enviar" id="Enviar">Enviar</button>
             </form>
 
         </div>
@@ -36,10 +214,10 @@
             <input type="text" id="wordSpanish" name="wordSpanish" placeholder="Enter the word in Spanish" required>
         
             <label for="description">Description:</label>
-            <textarea id="description" name="description" placeholder="Enter the description" rows="4" required></textarea>
+            <input type="text"  id="description" name="description" placeholder="Enter the description" " required>
         
             <label for="descriptionSpanish">Description (Spanish):</label>
-            <textarea id="descriptionSpanish" name="descriptionSpanish" placeholder="Enter the description in Spanish" rows="4" required></textarea>
+            <input type="text"  id="descriptionSpanish" name="descriptionSpanish" placeholder="Enter the description in Spanish"  required>
         
             <label for="example1">Example 1:</label>
             <input type="text" id="example1" name="example1" placeholder="Enter example 1" required>
@@ -56,11 +234,12 @@
             <label for="urlImage">urlImage:</label>
             <input type="text" id="urlImage" name="urlImage" placeholder="Enter urlImage" required>
         
-            <button type="submit">Submit</button>
+            <button id="submit" type="submit">Submit</button>
         </form>
     </dialog>
     <dialog id="signed">
-        <form id="loginForm">
+        <form class="loginForm" id="loginForm">
+            <img src="/assets/entender.png" alt="logo">
             <label for="email">Correo:</label>
             <input type="email" id="email" name="email" placeholder="Introduce tu correo" required>
         
@@ -124,9 +303,7 @@
        const wordForm = document.getElementById("wordForm");
 
             wordForm.addEventListener("submit", async (event) => {
-            event.preventDefault(); // Evita que se recargue la página
-
-            // Capturar los valores de los campos
+            event.preventDefault(); 
             const data = {
                 word: document.getElementById("word").value,
                 wordSpanish: document.getElementById("wordSpanish").value,
@@ -158,10 +335,12 @@
             return Math.floor(Math.random() * (max - min + 1)) + min;
         }
         //Logic App
+        let WORD = ""
         const GAMEGUESSWORD =()=>{
             const sizeDATA = DATA.length
             const randomNumber = getRandomInt(0, sizeDATA - 1)
             const randomNumberGame = getRandomInt(0, 8)
+            const randomNumberWords = getRandomInt(1, 2)
             const keysArray = [
                 "description",
                 "descriptionSpanish",
@@ -176,9 +355,122 @@
 
             const gameActually = DATA[randomNumber][keysArray[randomNumberGame]]
             const wordActually = document.getElementById("wordactually")
-            wordActually.textContent = gameActually
+            const wordSpanishEnglish = document.getElementById("wordSpanishEnglish")
+            let STATUSWORD = ""
+
+            if ( keysArray[randomNumberGame] == "word" ){
+                WORD = DATA[randomNumber].wordSpanish
+                STATUSWORD = "spanish"
+            }
+            else if ( keysArray[randomNumberGame] == "wordSpanish" ){
+                WORD = DATA[randomNumber].word
+                STATUSWORD = "english"
+
+            }
+            else{
+                if(randomNumberWords == 1){
+                    WORD = DATA[randomNumber].word
+                    STATUSWORD = "english"
+
+                }
+                else{
+                    WORD = DATA[randomNumber].wordSpanish
+                    STATUSWORD = "spanish"
+                }
+            }
+            if (STATUSWORD == "spanish"){
+                console.log(keysArray[randomNumberGame])
+                wordSpanishEnglish.innerText =""
+                switch (keysArray[randomNumberGame]) {
+                    case "word":
+                        wordSpanishEnglish.innerText = "Traduce al español la siguiente palabra"
+                        break
+                    case "description":
+                        wordSpanishEnglish.innerText = "En español a Que palabra hace referencia la siguiente descripcion "   
+                        break
+                    case "descriptionSpanish":
+                        wordSpanishEnglish.innerText = "En español a Que palabra hace referencia la siguiente descripcion"
+                        break
+                    case "example1":
+                        wordSpanishEnglish.innerText = "En español a Que palabra hace referencia el siguiente ejemplo"                   
+                        break
+                    case "example1Spanish":
+                        wordSpanishEnglish.innerText = "En español a Que palabra hace referencia el siguiente ejemplo"
+                        break
+                    case "example2":
+                        wordSpanishEnglish.innerText = "En español a Que palabra hace referencia el siguiente ejemplo"                   
+                        break
+                    case "example2Spanish":
+                        wordSpanishEnglish.innerText = "En español a Que palabra hace referencia el siguiente ejemplo"
+                        break
+                    case "urlImage":
+                        wordSpanishEnglish.innerText = "En español a Que palabra hace referencia la imagen"
+                        break
+                    
+                    
+                }
+            }
+            else if (STATUSWORD == "english"){
+                switch (keysArray[randomNumberGame]) {
+                    case "wordSpanish":
+                        wordSpanishEnglish.innerText = "Traduce al ingles la siguiente palabra"
+                        break
+                    case "description":
+                        wordSpanishEnglish.innerText = "En ingles a Que palabra hace referencia la siguiente descripcion "                   
+                        break
+                    case "descriptionSpanish":
+                        wordSpanishEnglish.innerText = "En ingles a Que palabra hace referencia la siguiente descripcion"
+                        break
+                    case "example1":
+                        wordSpanishEnglish.innerText = "En ingles a Que palabra hace referencia el siguiente ejemplo"                   
+                        break
+                    case "example1Spanish":
+                        wordSpanishEnglish.innerText = "En ingles a Que palabra hace referencia el siguiente ejemplo"
+                        break
+                    case "example2":
+                        wordSpanishEnglish.innerText = "En ingles a Que palabra hace referencia el siguiente ejemplo"                   
+                        break
+                    case "example2Spanish":
+                        wordSpanishEnglish.innerText = "En ingles a Que palabra hace referencia el siguiente ejemplo"
+                        break
+                    case "urlImage":
+                        wordSpanishEnglish.innerText = "En ingles a Que palabra hace referencia la imagen"
+                        break
+                    
+                }
+            }
+           
+            
+            if( keysArray[randomNumberGame] != "urlImage"){
+                wordActually.textContent = gameActually
+            }
+            else{
+                const img = document.createElement("img")
+                img.src = DATA[randomNumber]["urlImage"]
+                img.id ="urlimageactually"
+                document.getElementById("container-game")
+                .appendChild(img)
+            }
 
         }
+        document.getElementById("guessword").addEventListener("submit", (Event)=>{
+            Event.preventDefault()
+            const wordguess = document.getElementById("wordguess").value
+            if (wordguess.replace(/\s+/g, '') === WORD.replace(/\s+/g, '')) {
+                alert("Lo hiciste muy bien")
+                const urlImageActually = document.getElementById("urlimageactually")
+                if(urlImageActually){
+                    urlImageActually.remove()
+                }
+                GAMEGUESSWORD()
+            }
+            else{
+                alert("Incorrecto, No la palabra es "+WORD)
+            }
+
+        })
+        
+
 
 
       </script>

@@ -282,7 +282,8 @@
         });
             
 
-        loginForm.addEventListener("submit", (event) => {
+        loginForm.addEventListener("submit", (Event) => {
+            Event.preventDefault()
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
             signInWithEmailAndPassword(auth, email, password)

@@ -18,6 +18,11 @@
             padding: 0;
             background-color: #1B1B26;
             color: white;
+            overflow-x: hidden;
+        }
+        input{
+            font-family: 'Poppins', sans-serif;
+
         }
 
         /* Estilo del encabezado */
@@ -35,7 +40,7 @@
         .container {
             background-color: #0f1120;
             border-radius: 15px;
-            padding: 20px;
+            padding: 10px;
             width: 90%;
             max-width: 800px;
             margin: 20px auto;
@@ -49,7 +54,6 @@
             justify-content: center;
             align-items: center;
             margin-bottom: 20px;
-            padding: 20px;
             border-radius: 10px;
             width: 100%;
         }
@@ -178,15 +182,91 @@
             margin-top: 5px;
             background-color: #0f1120;
         }
+        #NewWord form {
+
+        }
         #NewWord input{
             margin-top: 3px;
+            width: 90%;
         }
         #wordactually{
             font-size: 20px;
             text-align: center;
-            padding: 10px;
+            padding-bottom: 60px;
             text-transform: capitalize;
+            margin-bottom: 30px;
+            font-family: 'Poppins', sans-serif;
+            padding: 10px;
+
         }
+        .NewWord::-webkit-scrollbar {
+        width: 8px; /* Ancho del scrollbar */
+        }
+
+        .NewWord::-webkit-scrollbar-track {
+        background: #f1f1f1; /* Fondo del track */
+        border-radius: 10px;
+        }
+
+        .NewWord::-webkit-scrollbar-thumb {
+        background: #888; /* Color del pulgar (la parte que se mueve) */
+        border-radius: 10px;
+        }
+
+        .NewWord::-webkit-scrollbar-thumb:hover {
+        background: #555; /* Color del pulgar al hacer hover */
+        }
+        .container{
+            text-align: center;
+        }
+        .alert {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 20px 30px;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      color: white;
+      animation: bounceIn 0.5s ease, fadeOut 0.5s ease 2.5s;
+      z-index: 1000;
+    }
+
+    .alert.success {
+      background-color: #4caf50;
+      box-shadow: 0 4px 20px rgba(76, 175, 80, 0.5);
+    }
+
+    .alert.error {
+      background-color: #f44336;
+      box-shadow: 0 4px 20px rgba(244, 67, 54, 0.5);
+    }
+
+    @keyframes bounceIn {
+      0% {
+        transform: translate(-50%, -50%) scale(0.5);
+        opacity: 0;
+      }
+      60% {
+        transform: translate(-50%, -50%) scale(1.2);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(-50%, -50%) scale(1);
+      }
+    }
+
+    @keyframes fadeOut {
+      0% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
 
     </style>
    <main>
@@ -231,7 +311,7 @@
             <label for="example2Spanish">Example 2 (Spanish):</label>
             <input type="text" id="example2Spanish" name="example2Spanish" placeholder="Enter example 2 in Spanish" required>
         
-            <label for="urlImage">urlImage:</label>
+            <label for="urlImage">Url Image:</label>
             <input type="text" id="urlImage" name="urlImage" placeholder="Enter urlImage" required>
         
             <button id="submit" type="submit">Submit</button>
@@ -249,7 +329,8 @@
             <button type="submit">Iniciar sesión</button>
         </form>
     </dialog>
-
+    <div id="alert-success" class="alert success">🎉 Success! Repuesta correcta 🎉</div>
+    <div id="alert-error" class="alert error">💥 Oops! Incorrecta 💥</div>
     <script type="module">
         const DATA = []
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
@@ -282,8 +363,8 @@
         });
             
 
-        loginForm.addEventListener("submit", (Event) => {
-            Event.preventDefault()
+        loginForm.addEventListener("submit", (event) => {
+            event.preventDefault()
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
             signInWithEmailAndPassword(auth, email, password)
@@ -458,7 +539,7 @@
             Event.preventDefault()
             const wordguess = document.getElementById("wordguess").value
             if (wordguess.replace(/\s+/g, '') === WORD.replace(/\s+/g, '')) {
-                alert("Lo hiciste muy bien")
+                showAlert('success')
                 const urlImageActually = document.getElementById("urlimageactually")
                 if(urlImageActually){
                     urlImageActually.remove()
@@ -466,13 +547,21 @@
                 GAMEGUESSWORD()
             }
             else{
-                alert("Incorrecto, No la palabra es "+WORD)
+                showAlert('error')
             }
 
         })
         
 
-
+        function showAlert(type) {
+            const alert = document.getElementById(`alert-${type}`);
+            if (alert) {
+                alert.style.display = 'block';
+                setTimeout(() => {
+                alert.style.display = 'none';
+                }, 1000); // Alert visible for 3 seconds
+            }
+            }
 
       </script>
    </main>

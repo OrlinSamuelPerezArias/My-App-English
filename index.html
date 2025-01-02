@@ -538,7 +538,14 @@
         document.getElementById("guessword").addEventListener("submit", (Event)=>{
             Event.preventDefault()
             const wordguess = document.getElementById("wordguess").value
-            if (wordguess.replace(/\s+/g, '') === WORD.replace(/\s+/g, '')) {
+            const normalizeString = (str) =>
+              str
+                .normalize("NFD") // Decomposes combined characters into their components
+                .replace(/[\u0300-\u036f]/g, "") // Removes diacritical marks
+                .toLowerCase() // Converts to lowercase
+                .replace(/\s+/g, ""); // Removes spaces
+            
+            if (normalizeString(wordguess) === normalizeString(WORD)) {
                 showAlert('success')
                 const urlImageActually = document.getElementById("urlimageactually")
                 if(urlImageActually){
